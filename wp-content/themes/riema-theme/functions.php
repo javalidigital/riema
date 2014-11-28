@@ -42,8 +42,8 @@ function riema_theme_setup() {
 
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
-		'primary' => __( 'Primary Menu', 'riema-theme' ),
-		'top-menu' => __( 'Top Menu', 'riema-theme' )
+		'menu-primary' => __( 'Primary Menu', 'riema-theme' ),
+		'menu-top' => __( 'Top Menu', 'riema-theme' )
 	) );
 
 	/*
@@ -78,14 +78,75 @@ add_action( 'after_setup_theme', 'riema_theme_setup' );
  */
 function riema_theme_widgets_init() {
 	register_sidebar( array(
-		'name'          => __( 'Sidebar', 'riema-theme' ),
-		'id'            => 'sidebar-1',
+		'name'          => __( 'Sidebar - Geral', 'riema-theme' ),
+		'id'            => 'sidebar-general',
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
-		'before_title'  => '<h1 class="widget-title">',
-		'after_title'   => '</h1>',
+		'before_title'  => '<div class="widget-title"><h5>',
+		'after_title'   => '</h5></div>',
 	) );
+
+	register_sidebar( array(
+		'name'          => __( 'Sidebar - Grupo', 'riema-theme' ),
+		'id'            => 'sidebar-grupo',
+		'description'   => '',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<div class="widget-title"><h5>',
+		'after_title'   => '</h5></div>',
+	) );
+
+	register_sidebar( array(
+		'name'          => __( 'Sidebar - Administração', 'riema-theme' ),
+		'id'            => 'sidebar-administracao',
+		'description'   => '',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<div class="widget-title"><h5>',
+		'after_title'   => '</h5></div>',
+	) );
+
+	register_sidebar( array(
+		'name'          => __( 'Sidebar - Imobiliária', 'riema-theme' ),
+		'id'            => 'sidebar-imobiliaria',
+		'description'   => '',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<div class="widget-title"><h5>',
+		'after_title'   => '</h5></div>',
+	) );
+
+	register_sidebar( array(
+		'name'          => __( 'Sidebar - Hospedagem', 'riema-theme' ),
+		'id'            => 'sidebar-hospedagem',
+		'description'   => '',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<div class="widget-title"><h5>',
+		'after_title'   => '</h5></div>',
+	) );
+
+	register_sidebar( array(
+		'name'          => __( 'Sidebar - Incorporação', 'riema-theme' ),
+		'id'            => 'sidebar-incorporacao',
+		'description'   => '',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<div class="widget-title"><h5>',
+		'after_title'   => '</h5></div>',
+	) );
+
+	register_sidebar( array(
+		'name'          => __( 'Sidebar - Gestão', 'riema-theme' ),
+		'id'            => 'sidebar-gestao',
+		'description'   => '',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<div class="widget-title"><h5>',
+		'after_title'   => '</h5></div>',
+	) );
+
 
 	register_sidebar( array(
 		'name'          => __( 'Landing Page - Boxes', 'riema-theme' ),

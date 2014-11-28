@@ -11,25 +11,22 @@
  */
 
 get_header(); ?>
-
 	<div id="primary" class="content-area">
+		<div class="breadcrumb">
+			<span class="breadcrumb-text">Voc&ecirc; est&aacute; em:</span>
+			<?php if(function_exists('bcn_display')) { bcn_display(); }?>
+		</div>
+		<div class="site-sidebar widget-area" role="complementary">
+			<?php get_sidebar(); ?>
+		</div>
 		<main id="main" class="site-main" role="main">
 
 			<?php while ( have_posts() ) : the_post(); ?>
 
 				<?php get_template_part( 'content', 'page' ); ?>
 
-				<?php
-					// If comments are open or we have at least one comment, load up the comment template
-					if ( comments_open() || get_comments_number() ) :
-						comments_template();
-					endif;
-				?>
-
 			<?php endwhile; // end of the loop. ?>
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
-
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>

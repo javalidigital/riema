@@ -141,16 +141,41 @@ a img {
 /*--------------------------------------------------------------
 2.0 Typography
 --------------------------------------------------------------*/
+
+@font-face {
+    font-family: 'futura_md_btmedium';
+    src: url('css/futura-medium-webfont.eot');
+    src: url('css/futura-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('css/futura-medium-webfont.woff2') format('woff2'),
+         url('css/futura-medium-webfont.woff') format('woff'),
+         url('css/futura-medium-webfont.ttf') format('truetype'),
+         url('css/futura-medium-webfont.svg#futura_md_btmedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'futura_bk_btbook';
+    src: url('css/futura-book-webfont.eot');
+    src: url('css/futura-book-webfont.eot?#iefix') format('embedded-opentype'),
+         url('css/futura-book-webfont.woff2') format('woff2'),
+         url('css/futura-book-webfont.woff') format('woff'),
+         url('css/futura-book-webfont.ttf') format('truetype'),
+         url('css/futura-book-webfont.svg#futura_bk_btbook') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body,
 button,
 input,
 select,
 textarea {
 	color: #404040;
-	font-family: sans-serif;
-	font-size: 16px;
+	font-family: 'futura_bk_btbook', Arial, Helvetica, sans-serif;
+	font-size: 14px;
 	font-size: 1.6rem;
-	line-height: 1.5;
+	line-height: 1.1em;
 }
 
 h1,
@@ -159,6 +184,9 @@ h3,
 h4,
 h5,
 h6 {
+	font-family: 'futura_md_btmedium';
+	font-weight: normal;
+	line-height: 1.1em;
 	clear: both;
 }
 
@@ -420,148 +448,6 @@ a:active {
 }
 
 /*--------------------------------------------------------------
-5.2 Menus
---------------------------------------------------------------*/
-.main-navigation {
-	clear: both;
-	display: block;
-	float: left;
-	width: 100%;
-}
-
-.main-navigation ul {
-	list-style: none;
-	margin: 0;
-	padding-left: 0;
-}
-
-.main-navigation li {
-	float: left;
-	position: relative;
-}
-
-.main-navigation a {
-	display: block;
-	text-decoration: none;
-}
-
-.main-navigation ul ul {
-	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-	float: left;
-	position: absolute;
-	top: 1.5em;
-	left: -999em;
-	z-index: 99999;
-}
-
-.main-navigation ul ul ul {
-	left: -999em;
-	top: 0;
-}
-
-.main-navigation ul ul a {
-	width: 200px;
-}
-
-.main-navigation ul ul li {
-
-}
-
-.main-navigation li:hover > a {
-}
-
-.main-navigation ul ul :hover > a {
-}
-
-.main-navigation ul ul a:hover {
-}
-
-.main-navigation ul li:hover > ul {
-	left: auto;
-}
-
-.main-navigation ul ul li:hover > ul {
-	left: 100%;
-}
-
-.main-navigation .current_page_item > a,
-.main-navigation .current-menu-item > a,
-.main-navigation .current_page_ancestor > a {
-}
-
-/* Small menu */
-.menu-toggle {
-	display: none;
-}
-
-@media screen and (max-width: 600px) {
-	.menu-toggle,
-	.main-navigation.toggled .nav-menu {
-		display: block;
-	}
-
-	.main-navigation ul {
-		display: none;
-	}
-}
-
-.site-main .comment-navigation,
-.site-main .paging-navigation,
-.site-main .post-navigation {
-	margin: 0 0 1.5em;
-	overflow: hidden;
-}
-
-.comment-navigation .nav-previous,
-.paging-navigation .nav-previous,
-.post-navigation .nav-previous {
-	float: left;
-	width: 50%;
-}
-
-.comment-navigation .nav-next,
-.paging-navigation .nav-next,
-.post-navigation .nav-next {
-	float: right;
-	text-align: right;
-	width: 50%;
-}
-
-/*--------------------------------------------------------------
-6.0 Accessibility
---------------------------------------------------------------*/
-/* Text meant only for screen readers */
-.screen-reader-text {
-	clip: rect(1px, 1px, 1px, 1px);
-	position: absolute !important;
-	height: 1px;
-	width: 1px;
-	overflow: hidden;
-}
-
-.screen-reader-text:hover,
-.screen-reader-text:active,
-.screen-reader-text:focus {
-	background-color: #f1f1f1;
-	border-radius: 3px;
-	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
-	clip: auto !important;
-	color: #21759b;
-	display: block;
-	font-size: 14px;
-	font-size: 1.4rem;
-	font-weight: bold;
-	height: auto;
-	left: 5px;
-	line-height: normal;
-	padding: 15px 23px 14px;
-	text-decoration: none;
-	top: 5px;
-	width: auto;
-	z-index: 100000; /* Above WP toolbar */
-}
-
-/*--------------------------------------------------------------
 7.0 Alignments
 --------------------------------------------------------------*/
 .alignleft {
@@ -806,7 +692,6 @@ html, body {
 }
 
 /* LAYOUT */
-
 .top-bar {
 	background: #6a6a6a;
 	height: 25px;
@@ -834,7 +719,7 @@ html, body {
 				margin-top:5px;
 			}
 
-				.top-bar ul.menu li#menu-item-9 a {
+				.top-bar ul.menu li#menu-item-50 a {
 					border-left: none;
 				}
 
@@ -857,14 +742,120 @@ html, body {
 						color:#EEE;
 					}
 
+.menu-bar {
+	background: #333333;
+	height: 80px;
+	text-align: right;
+}
+
+	.menu-bar-container {
+		width: 980px;
+		margin: 0 auto;
+		position: relative;
+		z-index: 1;
+	}
+
+		.menu-bar ul.menu {
+			position: absolute;
+			right: 0;
+			margin: 0;
+			padding: 0;
+			list-style-type:none;
+			text-align: right;
+		}
+
+			.menu-bar ul.menu li {
+				float: left;
+				margin-left:10px;
+				margin-top:15px;
+			}
+
+				.menu-bar ul.menu li a {
+					display: block;
+					width:120px;
+					height: 21px;
+					font-family: 'futura_md_btmedium';
+					font-size: 0.9em;
+					font-style: italic;
+					color:#FFF;
+					text-transform: uppercase;
+					text-decoration: none;
+					text-align: center;
+					padding: 21px 0 0 0;
+				}
+
+					.menu-bar ul.menu li a:visited {
+						color:#FFF;
+					}
+
+					.menu-bar ul.menu li a:hover,
+					.menu-bar ul.menu li.current-menu-item a {
+						color:#f58320;
+					}
+
+				.menu-bar ul.menu li.adm a {
+					background: url(images/icon_administracao_menu_riema.png) no-repeat center 0;
+				}
+
+					.menu-bar ul.menu li.adm a:hover,
+					.menu-bar ul.menu li.adm.current-menu-item a,
+					.menu-bar ul.menu li.adm.current-page-ancestor a {
+						background: url(images/icon_administracao_menu_riema.png) no-repeat center -21px;
+						color:#f58320;
+					}
+
+				.menu-bar ul.menu li.imo a {
+					background: url(images/icon_imobiliaria_menu_riema.png) no-repeat center 0;
+				}
+
+					.menu-bar ul.menu li.imo a:hover,
+					.menu-bar ul.menu li.imo.current-menu-item a ,
+					.menu-bar ul.menu li.imo.current-page-ancestor a {
+						background: url(images/icon_imobiliaria_menu_riema.png) no-repeat center -21px;
+						color:#f58320;
+					}
+
+				.menu-bar ul.menu li.hos a {
+					background: url(images/icon_hospedagem_menu_riema.png) no-repeat center 0;
+				}
+
+					.menu-bar ul.menu li.hos a:hover,
+					.menu-bar ul.menu li.hos.current-menu-item a,
+					.menu-bar ul.menu li.hos.current-page-ancestor a  {
+						background: url(images/icon_hospedagem_menu_riema.png) no-repeat center -21px;
+						color:#f58320;
+					}
+
+				.menu-bar ul.menu li.inc a {
+					background: url(images/icon_incorporacao_menu_riema.png) no-repeat center 0;
+				}
+
+					.menu-bar ul.menu li.inc a:hover,
+					.menu-bar ul.menu li.inc.current-menu-item a,
+					.menu-bar ul.menu li.inc.current-page-ancestor a {
+						background: url(images/icon_incorporacao_menu_riema.png) no-repeat center -21px;
+						color:#f58320;
+					}
+
+				.menu-bar ul.menu li.ges a {
+					background: url(images/icon_gestao_menu_riema.png) no-repeat center 0;
+				}
+
+					.menu-bar ul.menu li.ges a:hover,
+					.menu-bar ul.menu li.ges.current-menu-item a,
+					.menu-bar ul.menu li.ges.current-page-ancestor a {
+						background: url(images/icon_gestao_menu_riema.png) no-repeat center -21px;
+						color:#f58320;
+					}
+
 .logo-bar {
-	height: 95px;
-	margin-top: -25px;
+	height: 105px;
+	margin-top: -105px;
 }
 
 	.logo-bar-content {
 		float: left;
-		height: 95px;
+		height: 105px;
 		width: 440px;
 		background: #000000;
 	}
@@ -873,14 +864,15 @@ html, body {
 		float: left;
 		width: 0;
 		height: 0;
-		border-top: 95px solid #000000;
-		border-right: 95px solid transparent;
+		border-top: 105px solid #000000;
+		border-right: 105px solid transparent;
 	}
 
 .logo-bar-container {
 	width: 980px;
-	margin: -95px auto 0 auto;
+	margin: -105px auto 0 auto;
 	position: relative;
+	z-index: 0;
 }
 
 	.logo {
@@ -888,13 +880,138 @@ html, body {
 		background: url(images/logo_riema.png) no-repeat;
 		width: 186px;
 		height: 70px;
-		margin: 13px 0 12px 0;
+		margin: 17px 0 18px 0;
 	}
 
 .content-area {
 	width:980px;
 	margin: 0 auto;
+	position: relative;
 }
+
+	.breadcrumb {
+		margin: 20px 0 30px 0;
+		font-size:0.9em;
+		color:#ccc;
+	}
+
+		.breadcrumb a {
+			color:#ccc;
+			text-decoration: none;
+		}
+
+			.breadcrumb a:hover {
+				color:#989898;
+			}
+
+		.breadcrumb a.home {
+			background:url(images/icon_breadcrumb_riema.png) no-repeat center left;
+			padding-left: 20px;
+		}
+
+	.site-sidebar {
+		/*position: absolute;
+		left: 0;*/
+		float: left;
+		width:300px;
+	}
+
+		/* basic widget */
+		.site-sidebar aside {
+			margin-bottom:50px;
+		}
+		
+			.site-sidebar aside .widget-title {
+				background:url(images/bkg_sub-title_sidebar_riema.png) repeat-x center;
+				line-height:1.5em;
+				margin-bottom:15px;
+			}
+			
+				.site-sidebar aside .widget-title h5 {
+					background:#FFFFFF;
+					display:inline;
+					padding-right:10px;
+					font-size:1.1em;
+					color:#383838;
+					text-transform:uppercase;
+				}
+			
+			.site-sidebar aside p {
+				margin:0;
+			}
+
+
+			/* submenu */
+			.site-sidebar .widget_nav_menu ul.menu {
+				list-style-type:none;
+				margin:0;
+				padding:0;
+			}
+
+				.site-sidebar .widget_nav_menu ul.menu li {
+					margin:0;
+				}
+				
+					.site-sidebar .widget_nav_menu ul.menu li a {
+						font-size: 1em;
+						text-transform: uppercase;
+						text-decoration: none;
+						color: #383838;
+						display: block;
+						padding: 15px 0;
+						border-bottom: solid 1px #383838;
+						background:url(images/arrow_menu_sidebar_riema.png) no-repeat center right;
+					}
+					
+						.site-sidebar .widget_nav_menu ul.menu li a:visited {
+							color: #383838;
+						}
+						
+						.site-sidebar .widget_nav_menu ul.menu li a:active {
+							color:#121b56;
+						}
+						
+						.site-sidebar .widget_nav_menu ul.menu li a:hover {
+							color:#000;
+						}
+
+							.site-sidebar .widget_nav_menu ul.menu li.menu-item-has-children a {
+								background-image: url(images/arrow_sub-menu_accordion-on.png);
+							}
+
+								.site-sidebar .widget_nav_menu ul.menu li.menu-item-has-children a.ui-accordion-header-active {
+									background-image: url(images/arrow_sub-menu_accordion-off.png);
+								}
+						
+							.site-sidebar .widget_nav_menu ul.menu li ul.sub-menu {
+								margin:0 0 0 15px;
+								padding:0;
+								list-style-type:none;
+							}
+							
+								.site-sidebar .widget_nav_menu ul.menu li ul.sub-menu li {
+									
+								}
+								
+									.site-sidebar .widget_nav_menu ul.menu li ul.sub-menu li a {
+										font-size: 1.1em;
+										color: #9c9c9c;
+										background:none;
+										padding:10px 0;
+										border-bottom: solid 1px #9c9c9c;
+									}	
+
+	.site-main {
+		/*position: absolute;;
+		right: 0;*/
+		float: right;
+		width:650px;
+	}
+
+		.entry-title {
+			font-size: 1.6em;
+			color: #939393;
+		}
 
 .site-footer {
 	background: #000000;
@@ -902,15 +1019,20 @@ html, body {
 }
 
 	.site-footer-container {
-		width: 980px;
+		display: block;
+		width: 980px;		
 		margin: 0 auto;
 		position: relative;
+		
 	}
 
 		.site-footer-copyright {
+			height: 25px;
+			background: url(images/logo_footer_riema.png) no-repeat right center;
 			position: absolute;
 			right: 0;
-			top:5px;
+			padding-top:5px;
+			padding-right:25px;
 			font-size: 0.7em;
 			color:#FFF;
 			text-transform: uppercase;
@@ -919,6 +1041,12 @@ html, body {
 
 
 /* LANDING PAGE */
+
+body.home .menu-bar {
+	visibility: hidden;
+}
+
+
 .landing-page-boxes {
 	margin-top: 200px;
 }
@@ -947,9 +1075,8 @@ html, body {
 
 		.landing-page-box h1 {
 			text-transform: uppercase;
-			font-weight: bold;
 			font-size: 1em;
-			line-height: 1.1em;
+			line-height: 1.2em;
 		}
 
 		.landing-page-box p {
@@ -961,21 +1088,31 @@ html, body {
 		}
 
 	.landing-page-box.adm {
-		background:#000 url(images/icon_administracao_home_riema.png) no-repeat center 25px;
+		background-image:url(images/icon_administracao_home_riema.png);
+		background-repeat: no-repeat;
+		background-position: center 25px;
 	}
 
 	.landing-page-box.ges {
-		background:#000 url(images/icon_gestao_home_riema.png) no-repeat center 25px;
+		background-image: url(images/icon_gestao_home_riema.png);
+		background-repeat: no-repeat;
+		background-position: center 25px;
 	}
 
 	.landing-page-box.hos {
-		background:#000 url(images/icon_hospedagem_home_riema.png) no-repeat center 25px;
+		background-image:url(images/icon_hospedagem_home_riema.png);
+		background-repeat: no-repeat;
+		background-position: center 25px;
 	}
 
 	.landing-page-box.imo {
-		background:#000 url(images/icon_imobiliaria_home_riema.png) no-repeat center 25px;
+		background-image: url(images/icon_imobiliaria_home_riema.png);
+		background-repeat: no-repeat;
+		background-position: center 25px;
 	}
 
 	.landing-page-box.inc {
-		background:#000 url(images/icon_incorporacao_home_riema.png) no-repeat center 25px;
+		background-image:url(images/icon_incorporacao_home_riema.png);
+		background-repeat: no-repeat;
+		background-position: center 25px;
 	}
