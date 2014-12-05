@@ -1006,12 +1006,17 @@ html, body {
 		right: 0;*/
 		float: right;
 		width:650px;
+		margin-bottom: 30px;
 	}
 
-		.entry-title {
-			font-size: 1.6em;
-			color: #939393;
+		.entry-header {
+			margin-bottom:20px;
 		}
+
+			.entry-title {
+				font-size: 1.6em;
+				color: #939393;
+			}
 
 .site-footer {
 	background: #000000;
@@ -1041,7 +1046,6 @@ html, body {
 
 
 /* LANDING PAGE */
-
 body.home .menu-bar {
 	visibility: hidden;
 }
@@ -1116,3 +1120,73 @@ body.home .menu-bar {
 		background-repeat: no-repeat;
 		background-position: center 25px;
 	}
+
+/* blog */
+.post-item {
+	margin-bottom:30px;
+	clear: both;
+}
+
+	.post-item-image {
+		float:left;
+		width: 25%;
+		margin-right: 5%;
+	}
+
+		.post-item-image img {
+			display: block;
+		}
+
+	.post-item-content {
+		float: left;
+		width: 70%;
+	}
+
+		.post-item-date {
+			display: block;
+			float: left;
+			font-size: 0.7em;
+			text-transform: uppercase;;
+			color:#ccc;
+			margin-bottom: 5px;
+			line-height: 1em;
+		}	
+
+		.post-item-title {			
+			font-size:1.2em;
+			margin-bottom:5px;
+		}
+
+			.post-item-title a {
+				text-decoration: none;
+				color:#828282;
+			}
+
+				.post-item-title a:visited,
+				.post-item-title a:active {
+					color: #828282;
+				}
+
+				.post-item-title a:hover {
+					color:#424242;
+				}
+
+		.post-item-excerpt {
+			font-size: 0.9em;
+			color:c2c2c2;
+		}
+
+			.post-item-excerpt p {
+				margin-bottom: 0;
+			}
+
+			.post-item-excerpt a {
+				display: block;
+				margin-top: 10px;
+			}
+
+			
+
+
+
+
