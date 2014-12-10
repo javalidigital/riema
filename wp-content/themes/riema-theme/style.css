@@ -434,17 +434,17 @@ textarea {
 5.1 Links
 --------------------------------------------------------------*/
 a {
-	color: royalblue;
+	color: #f58320;
 }
 
 a:visited {
-	color: purple;
+	color: #f58320;
 }
 
 a:hover,
 a:focus,
 a:active {
-	color: midnightblue;
+	color: #df6b06;
 }
 
 /*--------------------------------------------------------------
@@ -1122,6 +1122,7 @@ body.home .menu-bar {
 	}
 
 /* blog */
+/* archive */
 .post-item {
 	margin-bottom:30px;
 	clear: both;
@@ -1185,6 +1186,13 @@ body.home .menu-bar {
 				margin-top: 10px;
 			}
 
+/* single */
+
+.entry-content-image {
+	display: block;
+	margin:0 auto 15px 0;
+	text-align: center;
+}
 			
 
 

@@ -7,13 +7,12 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
 		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-
-		<div class="entry-meta">
-			<?php riema_theme_posted_on(); ?>
-		</div><!-- .entry-meta -->
 	</header><!-- .entry-header -->
 
 	<div class="entry-content">
+		<div class="entry-content-image">
+			<?php the_post_thumbnail(); ?>
+		</div>
 		<?php the_content(); ?>
 		<?php
 			wp_link_pages( array(

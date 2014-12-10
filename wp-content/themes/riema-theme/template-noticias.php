@@ -32,7 +32,7 @@ get_header(); ?>
 					<div class="post-item clear">
 						<div class="post-item-image">														
 							<a href="<?php echo wp_get_shortlink(); ?>" title="<?php the_title(); ?>">
-								<?php the_post_thumbnail(); ?>
+								<?php the_post_thumbnail('thumbnail'); ?>
 							</a>									
 						</div>
 						<div class="post-item-content">
