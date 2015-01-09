@@ -16,6 +16,14 @@
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 
 <?php wp_head(); ?>
+<script type="text/javascript">
+window.onload = function() {
+  new dgCidadesEstados({
+    estado: document.getElementById('estado-imovel'),
+    cidade: document.getElementById('cidade-imovel')
+  });
+}
+</script>
 </head>
 
 <body <?php body_class(); ?>>

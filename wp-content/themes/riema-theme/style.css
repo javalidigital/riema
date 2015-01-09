@@ -999,7 +999,28 @@ html, body {
 										background:none;
 										padding:10px 0;
 										border-bottom: solid 1px #9c9c9c;
-									}	
+									}
+			/* end submenu */
+
+			/* newsletter */
+			.widget_custom_cf7 {
+
+			}
+
+			.widget_custom_cf7 form p {
+				margin-bottom: 10px;
+			}
+
+			.widget_custom_cf7 form .wpcf7-not-valid-tip {
+				font-size: 0.8em;
+				font-style: italic;
+			}
+
+			.widget_custom_cf7 form .wpcf7-response-output {
+				font-size: 0.8em;
+			}
+
+			/* end newsletter */	
 
 	.site-main {
 		/*position: absolute;;

@@ -168,6 +168,8 @@ add_action( 'widgets_init', 'riema_theme_widgets_init' );
 function riema_theme_scripts() {
 	wp_enqueue_style( 'riema-theme-style', get_stylesheet_uri() );
 
+	wp_enqueue_script( 'riema-cidadesbrasil', get_template_directory_uri() . '/js/cidades-estados-1.2-utf8.js', array(), '20110206', true );
+
 	wp_enqueue_script( 'riema-theme-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
 
 	wp_enqueue_script( 'riema-theme-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
