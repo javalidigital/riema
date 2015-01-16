@@ -29,7 +29,7 @@ get_header(); ?>
 
 				<!-- the loop -->
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-					<div class="post-item clear">
+					<div class="post-items" style="clear:both;">
 						<div class="post-item-image">														
 							<a href="<?php echo wp_get_shortlink(); ?>" title="<?php the_title(); ?>">
 								<?php the_post_thumbnail('thumbnail'); ?>

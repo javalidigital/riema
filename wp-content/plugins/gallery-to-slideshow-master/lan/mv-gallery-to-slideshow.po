@@ -1,0 +1,37 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery To Slideshow\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-21 09:47-0300\n"
+"PO-Revision-Date: 2012-06-21 09:47-0300\n"
+"Last-Translator: Matt Varone <plugins@mattvarone.com>\n"
+"Language-Team: Matt Varone <contact@mattvarone.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;__e;_x;_n\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: .\n"
+
+#: inc/gallery-to-slideshow-class.php:163
+msgid "Previous"
+msgstr ""
+
+#: inc/gallery-to-slideshow-class.php:164
+msgid "Next"
+msgstr ""
+
+#: inc/gallery-to-slideshow-class.php:165
+msgid "Pause"
+msgstr ""
+
+#: inc/gallery-to-slideshow-class.php:240
+msgid "Picture Gallery"
+msgstr ""
+
+#: inc/gallery-to-slideshow-class.php:270
+#, php-format
+msgid "Permalink to %s"
+msgstr ""
+

@@ -1153,6 +1153,7 @@ body.home .menu-bar {
 		float:left;
 		width: 25%;
 		margin-right: 5%;
+		margin-bottom:20px;
 	}
 
 		.post-item-image img {
@@ -1215,7 +1216,58 @@ body.home .menu-bar {
 	text-align: center;
 }
 			
+/* imobiliaria */
 
+.shortcode_featured_properties ul {
+	padding: 0;
+}
+
+	.wpp_featured_properties_shortcode li.wp-caption {
+		margin: 0 4px;
+	}
+
+	#content .shortcode_featured_properties ul li dd {
+		font-size: 0.9em;
+	}
+
+/* hospedagem */
+
+.button-hospedagem {
+	display: block !important;
+	text-align:center;
+}
+
+/*adm*/
+
+.title-adm {
+	margin-bottom:0 !important;
+}
+
+.box-portal {
+	border:solid 1px #f58320;
+	background:#EEE;
+	border-radius:10px;
+	padding: 20px;
+}
+
+	.box-portal input[type="text"],
+	.box-portal input[type="password"] {
+		display: block;
+		width: 100%;
+		margin-top: 2px;
+	}
+
+	.box-portal input[type="submit"] {
+		background-color: #f7be68;
+		color: #424242 !important;
+		-webkit-transition: all 0.5s;
+		-o-transition: all 0.5s;
+		transition: all 0.5s;
+		width:200px;
+		margin: 0 auto;
+		display: block;
+
+	}
 
 
 
