@@ -16,6 +16,7 @@
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 
 <?php wp_head(); ?>
+<link href='http://fonts.googleapis.com/css?family=Raleway:800' rel='stylesheet' type='text/css'>
 <script type="text/javascript">
 window.onload = function() {
   new dgCidadesEstados({
@@ -24,6 +25,13 @@ window.onload = function() {
   });
 }
 </script>
+<!--[if gte IE 9]>
+  <style type="text/css">
+    .gradient {
+       filter: none;
+    }
+  </style>
+<![endif]-->
 </head>
 
 <body <?php body_class(); ?>>

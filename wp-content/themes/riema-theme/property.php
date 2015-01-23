@@ -144,6 +144,12 @@
           <a href="<?php echo $post->parent_link; ?>" class="<?php wpp_css('btn', "btn btn-return"); ?>"><?php _e('Return to building page.','wpp') ?></a>
         <?php endif; ?>
 
+        <br /><br />
+
+        <h4>Contato</h4>
+
+        <?php echo do_shortcode('[contact-form-7 id="832" title="Imobiliária - Interessado"]'); ?>
+
       </div><!-- .entry-content -->
 
       </div>
