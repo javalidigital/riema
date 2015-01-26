@@ -1342,6 +1342,20 @@ body.home .menu-bar {
 			
 /* imobiliaria */
 
+#content .wpp_shortcode_search ul li {
+	padding: 0;
+}
+
+	#content .wpp_shortcode_search ul li:before	{
+		content: none;
+		border: none;
+	}
+
+	#content .wpp_shortcode_search ul li:after	{
+		content: none;
+		border: none;
+	}
+
 .shortcode_featured_properties ul {
 	padding: 0;
 }

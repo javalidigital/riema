@@ -130,6 +130,36 @@ function riema_theme_widgets_init() {
 	) );
 
 	register_sidebar( array(
+		'name'          => __( 'Sidebar - Hospedagem - Áustria', 'riema-theme' ),
+		'id'            => 'sidebar-hospedagem-austria',
+		'description'   => '',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<div class="widget-title"><h5>',
+		'after_title'   => '</h5></div>',
+	) );
+
+	register_sidebar( array(
+		'name'          => __( 'Sidebar - Hospedagem - Paulista', 'riema-theme' ),
+		'id'            => 'sidebar-hospedagem-paulista',
+		'description'   => '',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<div class="widget-title"><h5>',
+		'after_title'   => '</h5></div>',
+	) );
+
+	register_sidebar( array(
+		'name'          => __( 'Sidebar - Hospedagem - Saint', 'riema-theme' ),
+		'id'            => 'sidebar-hospedagem-saint',
+		'description'   => '',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<div class="widget-title"><h5>',
+		'after_title'   => '</h5></div>',
+	) );
+
+	register_sidebar( array(
 		'name'          => __( 'Sidebar - Incorporação', 'riema-theme' ),
 		'id'            => 'sidebar-incorporacao',
 		'description'   => '',
