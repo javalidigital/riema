@@ -1356,17 +1356,39 @@ body.home .menu-bar {
 		border: none;
 	}
 
+
+
 .shortcode_featured_properties ul {
 	padding: 0;
+	content: none;
+	margin: 0;
 }
 
-	.wpp_featured_properties_shortcode li.wp-caption {
-		margin: 0 4px;
+	.shortcode_featured_properties ul:before {
+		content:none;
 	}
 
-	#content .shortcode_featured_properties ul li dd {
-		font-size: 0.9em;
-	}
+		body:nth-of-type(1) .entry-content .wpb_text_column .shortcode_featured_properties ul li:before {
+			content: none;
+			padding: 0;
+		}
+
+			body:nth-of-type(1) .entry-content .wpb_text_column .shortcode_featured_properties ul li {
+				padding: 0;
+				margin: 0 5px;
+
+			}
+
+				body:nth-of-type(1) .entry-content .wpb_text_column .shortcode_featured_properties ul li:after {
+					content: none;
+
+				}
+
+					.shortcode_featured_properties {
+						font-size: 0.8em;
+					}
+
+	
 
 #content .entry-content .wpp_shortcode_search {
 	font-size: 11px;
