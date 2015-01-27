@@ -1459,6 +1459,22 @@ body.home .menu-bar {
    margin: -1.5em 0 !important;
 }
 
+/* inc */
+
+.button-obras {
+display: block !important;
+margin: 0 auto;
+text-align: center;
+width: 100px;
+}
+
+.button-obras-full {
+	display: block !important;
+	margin: 0 auto;
+	text-align: center;
+	width: 200px;
+}
+
 /* button */
 
 /* #Orange Flat Button
