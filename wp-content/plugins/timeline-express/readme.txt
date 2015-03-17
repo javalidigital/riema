@@ -3,8 +3,8 @@ Contributors: eherman24
 Donate link: http://www.evan-herman.com/contact/?contact-reason=I%20want%20to%20make%20a%20donation%20for%20all%20your%20hard%20work
 Tags: vertical, timeline, animated, css3, animations, evan, herman, evan herman, easy, time, line, font awesome, font, awesome, announcements, notifications, simple, events, calendar, scroll, triggered, scrolling, animated, fade, in, fade in
 Requires at least: 3.9
-Tested up to: 4.1
-Stable tag: 1.1.5.4
+Tested up to: 4.1.1
+Stable tag: 1.1.6.1
 License: GPLv2 or later
 
 Timeline express allows you to create a beautiful vertical animated and responsive timeline of posts , without writing a single line of code. Sweet!
@@ -39,10 +39,98 @@ Timeline express comes ready for translation. I would love to get things transla
 * Chinese (zh_CN) - thanks goes to <a href="http://www.vahichen.com" target="_blank">Vahi Chen</a>
 * Portuguese (pt_BR) - thanks goes to <a href="http://toborino.com" target="_blank">Gustavo Magalhães</a>
 * Polish (pl_PL) - thanks goes to Kanios
+* German (de_DE) - thanks goes to <a href="http://www.fairsoft.koeln" target="_blank">Martin Gerlach</a>
 
 <em>We're always looking for polyglots to help with the translations. If you enjoy this plugin, speak multiple languages and want to contribute please <a href="http://www.evan-herman.com/contact/" target="_blank">contact me</a> about how you can help translate things so users around the world can benefit from this plugin.</em>
 
+Looking for some advancedd documentation? Check out the <a href="https://wordpress.org/plugins/timeline-express/other_notes/">other notes</a> section.
+<br />
+<br />
+<strong>While the plugins I develop are free, maintaining and supporting them is hard work. If you find this plugin useful, or it helps in anyway, please consider making a <a href="http://www.evan-herman.com/contact/?contact-reason=I%20want%20to%20make%20a%20donation%20for%20all%20your%20hard%20work">donation</a> for its continued development.</strong>
+
+== Installation ==
+
+1. Download the plugin .zip file
+2. Log in to yourdomain.com/wp-admin
+3. Click Plugins -> Add New -> Upload
+4. Activate the plugin
+6. On the left hand menu, hover over 'Timeline Express' and click 'New Announcement'
+7. Begin populating the timeline with events. (Note: Events will appear in chronological order according to the <strong>announcement date</strong>)
+8. Once you have populated the timeline, head over to the settings page (Settings > Timeline Express) to customize your timeline.
+9. Create a new page, and enter the shortcode [timeline-express] to display the vertical timeline (Note: Timeline Express displays best on full width pages)
+
+== Frequently Asked Questions ==
+
+= How do I use this plugin? =
+Begin by simply installing the plugin. Once the plugin has been installed, go ahead and begin creating announcement posts. You'll find a new menu item just below 'Posts'.
+After you have a substantial number of announcements set up, you're ready to display the timeline on the front end of your site.
+
+Timeline express displays best on full width pages, but is not limited to them. Create a new page, and drop the shortcode into the page - `[timeline-express]`.
+Publish your page, and view it on the front end the see your new super sweet timeline! (scroll for animation effects!)
+
+= What template is the single announcement post using? Can I customize it at all? I want to do x, y or z. =
+The single announcement post is using a custom template file that comes pre-bundled with the plugin. If you want to customize the template for whatever reason
+you can do so, by creating a directory in your active theme called 'timeline-express'. Once the directory is created, simply copy the file titled 'single-timeline-express-announcement.php' into
+the newly created 'timeline-express' directory in your theme. Timeline express will then automagically pull in the newly created template in your theme root. You can go ahead and customize 
+it to your hearts desire without fear of losing any changes in future updates!
+
+= Can I create more than one timeline? =
+At the moment no, but I will consider adding that into a future update if people show enough interest.
+
+= At what width are the breakpoints set? =
+Breakpoints are set at 822px. The timeline will shift/re-adjust automatically using masonry based on the height of each announcement container.
+
+= How can I translate this plugin? =
+The text-domain for all gettext functions is `timeline-express`.
+
+If you enjoy this plugin and want to contribute, I'm always looking for people to help translate the plugin into any of the following languages, credit will be given where credit is due :
+
+* Arabic
+* English
+* French
+* Greek
+* Hebrew
+* Hindi
+* Hong Kong
+* Italian
+* Japanese
+* Korean
+* Persian
+* Portuguese (European)
+* Romanian
+* Russian
+* Spanish
+* Swedish
+* Taiwanese
+* Tamil
+* Urdu
+* Vietnamese
+* Welsh
+
+Read the Codex article "[I18n for WordPress Developers]"(http://codex.wordpress.org/I18n_for_WordPress_Developers) for more information. 
+
+== Other Notes ==
+
+Have an idea for a future release feature? I love hearing about new ideas! You can get in contact with me through the contact form on my website, <a href="http://www.evan-herman.com/contact/" target="_blank">Evan-Herman.com</a>.
+
+<hr />
+
+<strong>Developer Documentation</strong>
+
 **Hooks + Filters**
+
+**Use Alternate Image Size For Announcements (New v1.1.5.5)**
+
+By default Timeline Express generates a custom image size to use within the timeline. If you would like to use another image size, you can use the following filter.
+
+Example:
+<code>
+function change_timeline_express_announcement_image_size( $image_size ) {
+	$image_size = 'full';
+	return $image_size;
+}
+add_filter( 'timeline-express-announcement-img-size' , 'change_timeline_express_announcement_image_size' );
+</code>
 
 **Define your own custom fields to use in Announcement posts (New v1.1.5)**
 
@@ -203,76 +291,6 @@ function custom_timeline_express_template_file( $template_file ) {
 add_filter( 'timeline_express_custom_template' , 'custom_timeline_express_template_file' , 10 );
 </code>
 
-<br />
-<br />
-<strong>While the plugins I develop are free, maintaining and supporting them is hard work. If you find this plugin useful, or it helps in anyway, please consider making a <a href="http://www.evan-herman.com/contact/?contact-reason=I%20want%20to%20make%20a%20donation%20for%20all%20your%20hard%20work">donation</a> for its continued development.</strong>
-
-== Installation ==
-
-1. Download the plugin .zip file
-2. Log in to yourdomain.com/wp-admin
-3. Click Plugins -> Add New -> Upload
-4. Activate the plugin
-6. On the left hand menu, hover over 'Timeline Express' and click 'New Announcement'
-7. Begin populating the timeline with events. (Note: Events will appear in chronological order according to the <strong>announcement date</strong>)
-8. Once you have populated the timeline, head over to the settings page (Settings > Timeline Express) to customize your timeline.
-9. Create a new page, and enter the shortcode [timeline-express] to display the vertical timeline (Note: Timeline Express displays best on full width pages)
-
-== Frequently Asked Questions ==
-
-= How do I use this plugin? =
-Begin by simply installing the plugin. Once the plugin has been installed, go ahead and begin creating announcement posts. You'll find a new menu item just below 'Posts'.
-After you have a substantial number of announcements set up, you're ready to display the timeline on the front end of your site.
-
-Timeline express displays best on full width pages, but is not limited to them. Create a new page, and drop the shortcode into the page - `[timeline-express]`.
-Publish your page, and view it on the front end the see your new super sweet timeline! (scroll for animation effects!)
-
-= What template is the single announcement post using? Can I customize it at all? I want to do x, y or z. =
-The single announcement post is using a custom template file that comes pre-bundled with the plugin. If you want to customize the template for whatever reason
-you can do so, by creating a directory in your active theme called 'timeline-express'. Once the directory is created, simply copy the file titled 'single-timeline-express-announcement.php' into
-the newly created 'timeline-express' directory in your theme. Timeline express will then automagically pull in the newly created template in your theme root. You can go ahead and customize 
-it to your hearts desire without fear of losing any changes in future updates!
-
-= Can I create more than one timeline? =
-At the moment no, but I will consider adding that into a future update if people show enough interest.
-
-= At what width are the breakpoints set? =
-Breakpoints are set at 822px. The timeline will shift/re-adjust automatically using masonry based on the height of each announcement container.
-
-= How can I translate this plugin? =
-The text-domain for all gettext functions is `timeline-express`.
-
-If you enjoy this plugin and want to contribute, I'm always looking for people to help translate the plugin into any of the following languages, credit will be given where credit is due :
-
-* Arabic
-* English
-* French
-* German
-* Greek
-* Hebrew
-* Hindi
-* Hong Kong
-* Italian
-* Japanese
-* Korean
-* Persian
-* Portuguese (European)
-* Romanian
-* Russian
-* Spanish
-* Swedish
-* Taiwanese
-* Tamil
-* Urdu
-* Vietnamese
-* Welsh
-
-Read the Codex article "[I18n for WordPress Developers]"(http://codex.wordpress.org/I18n_for_WordPress_Developers) for more information. 
-
-== Future Ideas ==
-
-Have an idea for a future release feature? I love hearing about new ideas! You can get in contact with me through the contact form on my website, <a href="http://www.evan-herman.com/contact/" target="_blank">Evan-Herman.com</a>.
-
 == Screenshots ==
 
 1. Timeline Express announcement post creation screen
@@ -283,23 +301,51 @@ Have an idea for a future release feature? I love hearing about new ideas! You c
 
 == Changelog ==
 
+= 1.1.6.1 - March 10th, 2015 =
+* Enhancement: Altered new option label to be 'Exclude Announcements from Site Searches' (settings were reversed (true excluded while false included) )
+
+= 1.1.6 - March 9th, 2015 =
+* Enhancement: Fixed 404 issue on announcement posts when 'Include Announcement in Site Searches' was set to 'false'.
+
+= 1.1.5.9 - March 6th, 2015 =
+* Enhancement: Added a priority to the metabox initialization, which caused conflicts with other plugins using the same class
+
+= 1.1.5.8 - March 5th, 2015 =
+* Enhancement: Upgraded font-awesome to 4.3.0
+* Enhancement: Added icon select dropdown on the settings page, to better mirror the post/page edit screens
+* Enhancement: Added new setting to toggle Timeline posts from appearing in search queries on the front end (defaults to true) 
+* Enhancement: Packaged German translation - thanks to <a href="http://www.fairsoft.koeln" target="_blank">Martin Gerlach</a>
+
+= 1.1.5.7 - February 5th, 2015 =
+* Enhancement: Added a dropdown to select the font awesome icon
+* Enhancement: Fadded in the timeline after everything has initialized, to prevent seeing a messed up Timeline layout
+
+= 1.1.5.6 - February 5th, 2015 =
+* Fixed: Issue with the excerpt being truncated and throwing off entire timeline layout (issue occured when truncate happened mid html tag , which left a tag open)
+* Fixed: Wrapped missing text in text domain
+
+= 1.1.5.5 - February 1st, 2015 =
+* Fixed: Wrapped admin column headers in get text filter
+* Fixed: Sort orders by announcement date
+* Enhancement: Added filter to define custom image size for announcement image
+
 = 1.1.5.4 - January 19th, 2015 =
-Fixed: Remove unnecessary filter in the main class file
+* Fixed: Remove unnecessary filter in the main class file
 
 = 1.1.5.3 - January 16th, 2015 =
-Fixed: Fixed incorrect date save format
+* Fixed: Fixed incorrect date save format
 
 = 1.1.5.2 - January 13th, 2015 =
-Fixed: Errors thrown from new user fields hook, when no custom fields are defined by the user
-Fixed: Incorrect date format for new announcements
+* Fixed: Errors thrown from new user fields hook, when no custom fields are defined by the user
+* Fixed: Incorrect date format for new announcements
 
 = 1.1.5.1 - January 10th, 2015 =
-Fixed: Data saving incorrectly to the database, causing errors to be thrown on front and back end
+* Fixed: Data saving incorrectly to the database, causing errors to be thrown on front and back end
 
 = 1.1.5 - January 10th, 2015 =
-Enhancement: Added new filter ( `timeline_express_custom_fields` ) which allows users to define their own custom fields to use on Timeline Announcement posts (see readme for example).
-Fixed: CMB class file causing conflicts with other plugins, and removed the old version
-Fixed: Adjusted a few styles on the announcement post page
+* Enhancement: Added new filter ( `timeline_express_custom_fields` ) which allows users to define their own custom fields to use on Timeline Announcement posts (see readme for example).
+* Fixed: CMB class file causing conflicts with other plugins, and removed the old version
+* Fixed: Adjusted a few styles on the announcement post page
 
 = 1.1.4.1 - January 2nd, 2015 =
 * Fixed: Issue with date storing different on backend vs front end
@@ -383,27 +429,56 @@ Fixed: Adjusted a few styles on the announcement post page
 
 == Upgrade Notice ==
 
+= 1.1.6.1 - March 10th, 2015 =
+* Enhancement: Altered new option label to be 'Exclude Announcements from Site Searches' (settings were reversed (true excluded while false included) )
+
+= 1.1.6 - March 9th, 2015 =
+* Enhancement: Fixed 404 issue on announcement posts when 'Include Announcement in Site Searches' was set to 'false'.
+
+= 1.1.5.9 - March 6th, 2015 =
+* Enhancement: Added a priority to the metabox initialization, which caused conflicts with other plugins using the same class
+
+= 1.1.5.8 - March 5th, 2015 =
+* Enhancement: Upgraded font-awesome to 4.3.0
+* Enhancement: Added icon select dropdown on the settings page, to better mirror the post/page edit screens
+* Enhancement: Added new setting to toggle Timeline posts from appearing in search queries on the front end (defaults to true) 
+* Enhancement: Packaged German translation - thanks to <a href="http://www.fairsoft.koeln" target="_blank">Martin Gerlach</a>
+
+= 1.1.5.7 - February 5th, 2015 =
+* Message From The Author: Sorry for multiple updates on the same day. I was feeling ambitious and rolled out one patch to fix an issue and another with some new features. Enjoy :)
+* Enhancement: Added a dropdown to select the font awesome icon
+* Enhancement: Fadded in the timeline after everything has initialized, to prevent seeing a messed up Timeline layout
+
+= 1.1.5.6 - February 5th, 2015 =
+* Fixed: Issue with the excerpt being truncated and throwing off entire timeline layout (issue occured when truncate happened mid html tag , which left a tag open)
+* Fixed: Wrapped missing text in text domain
+
+= 1.1.5.5 - February 1st, 2015 =
+* Fixed: Wrapped admin column headers in get text filter
+* Fixed: Sort orders by announcement date
+* Enhancement: Added filter to define custom image size for announcement image (see <a href="https://wordpress.org/plugins/timeline-express/other_notes/">documentation</a>)
+
 = 1.1.5.4 - January 19th, 2015 =
-Fixed: Remove unecessary filter in the main class file
+* Fixed: Remove unecessary filter in the main class file
 
 = 1.1.5.3 - January 16th, 2015 =
-Fixed: Fixed incorrect date save format
+* Fixed: Fixed incorrect date save format
 
 = 1.1.5.2 - January 10th, 2015 =
-Fixed: Errors thrown from new user fields hook, when no custom fields are defined by the user
-Fixed: Incorrect date format for new announcements
+* Fixed: Errors thrown from new user fields hook, when no custom fields are defined by the user
+* Fixed: Incorrect date format for new announcements
 
 = 1.1.5.1 - January 10th, 2015 =
-Fixed: Data saving incorrectly to the database, causing errors to be thrown on front and back end
+* Fixed: Data saving incorrectly to the database, causing errors to be thrown on front and back end
 
 = 1.1.5 - January 10th, 2015 =
-Enhancement: Added new filter ( `timeline_express_custom_fields` ) which allows users to define their own custom fields to use on Timeline Announcement posts (see readme for example).
-Fixed: CMB class file causing conflicts with other plugins, and removed the old version
-Fixed: Adjusted a few styles on the announcement post page
+* Enhancement: Added new filter ( `timeline_express_custom_fields` ) which allows users to define their own custom fields to use on Timeline Announcement posts (see readme for example).
+* Fixed: CMB class file causing conflicts with other plugins, and removed the old version
+* Fixed: Adjusted a few styles on the announcement post page
 
 = 1.1.4.1 - January 2nd, 2015 =
-Fixed: Issue with date storing different on backend vs front end
-Fixed: Settings link on the Timeline Express welcome page
+* Fixed: Issue with date storing different on backend vs front end
+* Fixed: Settings link on the Timeline Express welcome page
 
 = 1.1.4 - December 24th, 2014 =
 * Enhancement: Implemented premium support licensing. Any issues that require immediate response, or custom code should purchase a support license.

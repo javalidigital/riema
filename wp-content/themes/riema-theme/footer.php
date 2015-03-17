@@ -14,7 +14,7 @@
 <footer id="colophon" class="site-footer" role="contentinfo">
 	<div class="site-footer-container">
 		<div class="site-footer-copyright">
-			<span>&copy; 2014 Grupo Riema. Todos os direitos reservados</span>
+			<span>&copy; 2015 Grupo Riema. Todos os direitos reservados</span>
 		</div>
 	</div>
 </footer><!-- #colophon -->

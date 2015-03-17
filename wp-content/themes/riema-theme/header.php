@@ -24,6 +24,29 @@ window.onload = function() {
     cidade: document.getElementById('cidade-imovel')
   });
 }
+
+jQuery(document).ready(function() {
+    jQuery('.datepicker').datepicker({
+        dateFormat : 'dd/mm/yy',
+        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+	    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+	    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+	    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+	    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+	    nextText: 'Próximo',
+	    prevText: 'Anterior'
+    });
+
+    
+	
+	jQuery('#form-reservation-submit').click( function() { 
+		var FlatName = jQuery("#form-reservation-flat").val();
+	    var FlatCheckin = jQuery("#form-reservation-checkin").val();
+	    var FlatCheckout = jQuery("#form-reservation-checkout").val();
+		location.href = "http://www.engenhosistemas.com.br/riema/?xcodadministradora=RIEMA&xcodhot=" + FlatName + "&xDe=" + FlatCheckin + "&xAte=" + FlatCheckout;
+		return false;
+	} );
+});
 </script>
 <!--[if gte IE 9]>
   <style type="text/css">

@@ -36,6 +36,7 @@ if(!class_exists("timelineExpressBase"))
 					// redirect the user on plugin activation
 					// to the timeline express welcome page
 					add_option('timeline_express_do_activation_redirect', true);
+					$this->addMissingOptions();
 				}
 
 			public function deactivate() {
@@ -112,7 +113,7 @@ if(!class_exists("timelineExpressBase"))
 					// change announcement CPT title
 					add_filter( 'enter_title_here', array( &$this , 'change_default_announcement_title' ) );	
 					// enqueue announcement metaboxes
-					add_filter( 'cmb_meta_boxes', array( &$this , 'cmb_timeline_announcement_metaboxes' ) );
+					add_filter( 'cmb_meta_boxes', array( &$this , 'cmb_timeline_announcement_metaboxes' ), 9999 );
 					// add custom columns to the timeline express announcement cpt
 					add_filter('manage_edit-te_announcements_columns', array( &$this, 'add_new_timeline_express_columns' ) );
 					// generate the content for each column
@@ -121,6 +122,8 @@ if(!class_exists("timelineExpressBase"))
 					add_filter( 'manage_edit-te_announcements_sortable_columns', array( &$this ,  'make_sortable_timeline_express_column' ) );
 					// custom sort function
 					add_action( 'pre_get_posts', array( &$this , 'te_announcements_pre_get_posts' ) , 1 );
+					// custom sort orderby 'announcement_date'
+					add_filter( 'request', array( &$this , 'announcement_date_column_orderby' ) );
 					// register custom image size for the edit page
 					add_image_size( 'timeline-express-thumbnail', 150, 60, true );
 					// register custom image size for the single announcement page
@@ -150,7 +153,24 @@ if(!class_exists("timelineExpressBase"))
 					// custom vlaidation for our new custom field
 					 //Validate new metabox type
 					add_filter( 'cmb_validate_te_date_time_stamp_custom', array( $this, 'cmb_validate_te_date_time_stamp_custom' ) , 10, 2 );
+					// render new custom timeline express about metabox
+					add_action( 'cmb_render_te_bootstrap_dropdown', array( $this, 'cmb_render_te_bootstrap_dropdown' ), 10, 2 );
+					// validate the new custom timeline express about metabox
+					add_filter( 'cmb_validate_te_bootstrap_dropdown', array( $this, 'cmb_validate_te_bootstrap_dropdown' ) , 10, 2);
 				}
+			
+			function addMissingOptions() {
+				// store the option temporarily
+				$this->timeline_express_optionVal = get_option( TIMELINE_EXPRESS_OPTION );
+				// add new option announcement-appear-in-searches 
+				// ( toggle display of announcements in searches )
+				// @since v1.1.5.8
+				if( !isset( $this->timeline_express_optionVal['announcement-appear-in-searches'] ) ) {
+					$this->timeline_express_optionVal['announcement-appear-in-searches'] = 'true';
+				}
+				// update the options
+				update_option( TIMELINE_EXPRESS_OPTION , $this->timeline_express_optionVal );
+			}
 			
 			/*
 			* cmb_render_te_date_time_stamp_custom()
@@ -158,21 +178,21 @@ if(!class_exists("timelineExpressBase"))
 			* since @v1.1.5
 			*/
 			function cmb_render_te_date_time_stamp_custom( $field, $meta ) {
-				?>
-				<style>
-					#ui-datepicker-div { z-index: 99999 !important; }
-					#wpbody-content { overflow: hidden !important; }
-					.cmb_id_announcement_image td .cmb_upload_button { height: 32px !important; }
-				</style>
-				<?php
-				if( $meta && isset( $meta ) ){
-					echo '<input class="cmb_text_small cmb_datepicker" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? date( 'm/d/Y' , $meta ) : $field['default'], '" />';
-					echo '<p class="cmb_metabox_description">'.$field['desc'].'</p>';
-				} else{
-					echo '<input class="cmb_text_small cmb_datepicker" type="text" name="', $field['id'], '" id="', $field['id'], '" value="' . date('m/d/Y' ) .'" />';
-					echo '<p class="cmb_metabox_description">'.$field['desc'].'</p>';
-				}				
-			}
+					?>
+					<style>
+						#ui-datepicker-div { z-index: 99999 !important; }
+						#wpbody-content { overflow: hidden !important; }
+						.cmb_id_announcement_image td .cmb_upload_button { height: 32px !important; }
+					</style>
+					<?php
+					if( $meta && isset( $meta ) ){
+						echo '<input class="cmb_text_small cmb_datepicker" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? date( 'm/d/Y' , $meta ) : $field['default'], '" />';
+						echo '<p class="cmb_metabox_description">'.$field['desc'].'</p>';
+					} else{
+						echo '<input class="cmb_text_small cmb_datepicker" type="text" name="', $field['id'], '" id="', $field['id'], '" value="' . date('m/d/Y' ) .'" />';
+						echo '<p class="cmb_metabox_description">'.$field['desc'].'</p>';
+					}				
+				}
 
 			/*
 			* cmb_validate_te_date_time_stamp_custom()
@@ -180,11 +200,11 @@ if(!class_exists("timelineExpressBase"))
 			* since @v1.1.5
 			*/
 			function cmb_validate_te_date_time_stamp_custom( $value, $new ) {
-				if( isset( $new ) && $new != '' ){
-					return strtotime( $new );
+					if( isset( $new ) && $new != '' ){
+						return strtotime( $new );
+					}
+					return '-1';
 				}
-				return '-1';
-			}
 			
 			
 			 /*
@@ -193,10 +213,31 @@ if(!class_exists("timelineExpressBase"))
 			* since @v1.1.5
 			*/
 			function cmb_render_te_about_metabox( $field, $meta ) {
-				require_once TIMELINE_EXPRESS_PATH . 'lib/about-metabox-template.php';
-			}
+					require_once TIMELINE_EXPRESS_PATH . 'lib/about-metabox-template.php';
+				}
 			
+			 /*
+			* cmb_render_te_bootstrap_dropdown()
+			* render the custom bootstrap dropdown
+			* since @v1.1.5.7
+			*/
+			function cmb_render_te_bootstrap_dropdown( $field, $meta ) {
+					// pass in the field object and meta data
+					$this->timeline_express_build_bootstrap_dropdown( $field, $meta );
+				}
 			
+			/*
+			* cmb_validate_te_date_time_stamp_custom()
+			* save our custom date time stamp
+			* since @v1.1.5
+			*/
+			function cmb_validate_te_bootstrap_dropdown( $value, $new ) {
+					if( isset( $new ) && $new != '' ){
+						return 'fa-'.trim($new);
+					}
+					return '-1';
+				}	
+				
 			/*
 			* schedule_timeline_express_support_cron()
 			* Setup our twice daily transient, to cross check the API key ( if set )
@@ -216,10 +257,10 @@ if(!class_exists("timelineExpressBase"))
 					if ( get_option( 'timeline_express_license_status' ) !== false && get_option( 'timeline_express_license_status' ) == 'valid' ) {
 						// api parameters, cross checking the license
 							$api_params = array( 
-								'edd_action'=> 'check_license', 
-								'license' 	=> trim( get_option( 'timeline_express_license_key' ) ), 
+								'edd_action' => 'check_license', 
+								'license' => trim( get_option( 'timeline_express_license_key' ) ), 
 								'item_name' => urlencode( EH_DEV_SHOP_SUPPORT_PRODUCT_NAME ), // the name of our product
-								'url'       => home_url()
+								'url' => home_url()
 							);
 							// Call the custom API.
 							$response = wp_remote_get( add_query_arg( $api_params, EH_DEV_SHOP_URL ), array( 'timeout' => 15, 'sslverify' => false ) );
@@ -373,7 +414,22 @@ if(!class_exists("timelineExpressBase"))
 				
 			// Register Announcement Custom Post Type
 			public function timeline_express_generate_announcement_post_type() {
-								
+					
+					$this->timeline_express_optionVal = get_option( TIMELINE_EXPRESS_OPTION );
+					if( isset( $this->timeline_express_optionVal['announcement-appear-in-searches'] ) ) {
+						$announcements_public = $this->timeline_express_optionVal['announcement-appear-in-searches'];
+					} else {
+						$announcements_public = 'true';
+					}
+					
+					// toggle public search visibility of the announcements
+					// @since v1.1.5.8
+					if( $announcements_public == 'false' ) {
+						$announcements_public = false;
+					} else {
+						$announcements_public = true;
+					}
+					
 					// Register our Announcement Custom Post Type
 						// used to easily manage the announcements on the site
 					$timeline_express_labels = array(
@@ -413,7 +469,7 @@ if(!class_exists("timelineExpressBase"))
 						'menu_icon' 			=> TIMELINE_EXPRESS_URL . '/images/timeline-express-menu-icon.png',
 						'can_export'          => true,
 						'has_archive'         => true,
-						'exclude_from_search' => false,
+						'exclude_from_search' =>  $announcements_public, // toggled via setitngs page - @since v1.1.5.8,
 						'publicly_queryable'  => true,
 						'rewrite'             => $timeline_express_rewrite,
 						'capability_type'     => 'page',
@@ -458,11 +514,11 @@ if(!class_exists("timelineExpressBase"))
 								// 'on_front' => false, // Optionally designate a field to wp-admin only
 							),
 							array(
-								'name' => __( 'Font Awesome Class', 'timeline-express' ),
-								'desc' => __( 'enter the font-awesome class name in the box above. This is used for the icon associated with the announcement. <a href="http://fortawesome.github.io/Font-Awesome/cheatsheet/" target="_blank">cheat sheet</a> Example : "fa-times-circle" ', 'timeline-express' ),
+								'name' => __( 'Announcement Icon', 'timeline-express' ),
+								'desc' => __( 'select an icon from the drop down above. This is used for the icon associated with the announcement.', 'timeline-express' ),
 								'id'   => $prefix . 'icon',
-								'type' => 'text_medium',
-								'default' => trim( $this->timeline_express_optionVal['default-announcement-icon'] ),
+								'type' => 'te_bootstrap_dropdown',
+								'default' => 'fa-'.str_replace( 'fa-' , '' , $this->timeline_express_optionVal['default-announcement-icon'] ),
 								// 'repeatable' => true,
 								// 'on_front' => false, // Optionally designate a field to wp-admin only
 							),
@@ -471,7 +527,7 @@ if(!class_exists("timelineExpressBase"))
 								'desc' => __( 'enter the date of the announcement. the announcements will appear in chronological order according to this date. ', 'timeline-express' ),
 								'id'   => $prefix . 'date',
 								'type' => 'te_date_time_stamp_custom',
-								 'default' => strtotime( date( 'm/d/Y' ) ), 
+								'default' => strtotime( date( 'm/d/Y' ) ), 
 								// 'repeatable' => true,
 								// 'on_front' => false, // Optionally designate a field to wp-admin only
 							),
@@ -547,12 +603,12 @@ if(!class_exists("timelineExpressBase"))
 			/* Add Custom Columns to Announcement page */
 			public function add_new_timeline_express_columns($timeline_express_columns) {
 					$timeline_express_announcement_columns['cb'] = '<input type="checkbox" />';
-					$timeline_express_announcement_columns['title'] = _x('Announcement Name', 'column name');
-					$timeline_express_announcement_columns['color'] = _x('Color', 'column name');
-					$timeline_express_announcement_columns['icon'] = _x('Icon', 'column name');
-					$timeline_express_announcement_columns['announcement_date'] = _x('Announcement Date', 'column name');
-					$timeline_express_announcement_columns['image'] = _x('Image', 'column name');
-					$timeline_express_announcement_columns['past_announcement'] = _x('Announcment Past?', 'column name');
+					$timeline_express_announcement_columns['title'] = _x('Announcement Name', 'timeline-express');
+					$timeline_express_announcement_columns['color'] = _x('Color', 'timeline-express');
+					$timeline_express_announcement_columns['icon'] = _x('Icon', 'timeline-express');
+					$timeline_express_announcement_columns['announcement_date'] = _x('Announcement Date', 'timeline-express');
+					$timeline_express_announcement_columns['image'] = _x('Image', 'timeline-express');
+					$timeline_express_announcement_columns['past_announcement'] = _x('Announcment Past?', 'timeline-express');
 					return $timeline_express_announcement_columns;
 				}
 		
@@ -624,7 +680,7 @@ if(!class_exists("timelineExpressBase"))
 						 case 'announcement_date':
 							// set our query's meta_key, which is used for custom fields
 							$query->set( 'meta_key', 'announcement_date' );
-							$query->set( 'orderby', 'meta_value meta_value_num' );
+							$query->set( 'orderby', 'meta_value_num' );
 							break;
 
 					  }
@@ -632,6 +688,16 @@ if(!class_exists("timelineExpressBase"))
 				   }
 
 				}
+			
+			function announcement_date_column_orderby( $vars ) {
+				if ( isset( $vars['orderby'] ) && 'announcement_date' == $vars['orderby'] ) {
+					$vars = array_merge( $vars, array(
+						'meta_key' => 'announcement_date',
+						'orderby' => 'meta_value_num'
+					) );
+				}
+				return $vars;
+			}
 			
 			// register our shortcodes
 			public function timeline_express_createShortcodes() {
@@ -646,7 +712,7 @@ if(!class_exists("timelineExpressBase"))
 						'timeline-title-alignment' => "left",
 						'timeline-title-size' => "h1",
 						'default-announcement-color' => '#75CE66',
-						'excerpt-trim-length' => '30',
+						'excerpt-trim-length' => '250',
 						'excerpt-random-length' => '0',
 						'read-more-visibility'	=> '1',
 						'date-visibility'	=> '1',
@@ -752,14 +818,14 @@ if(!class_exists("timelineExpressBase"))
 									$announcement_header_image = wp_get_attachment_image_src( $announcement_image_id[0] , 'timeline-express-announcement-header');
 									$custom_content .= '<img class="announcement-banner-image" src="' . esc_url ( $announcement_header_image[0] ) . '" alt="' . get_the_title( $post->ID ) . '">';
 								}
-								$custom_content .= '<strong class="timeline-express-single-page-announcement-date">Announcement Date : ' . date( 'M j , Y' , $announcement_date ) . '</strong>';
+								$custom_content .= '<strong class="timeline-express-single-page-announcement-date">' . __( 'Announcement Date' , 'timeline-express' ) . ' : ' . date( 'M j , Y' , $announcement_date ) . '</strong>';
 								$custom_content .= $content;
 								if ( $referer != '' ) {	
 									$custom_content .= '<a href="' . $referer . '" class="return-to-timeline"><i class="fa fa-chevron-left"></i> ' . __( 'Back' , 'timeline-express' ) . '</a>';
 								}
 								return $custom_content;
 							} else {	
-								$custom_content = '<strong class="timeline-express-single-page-announcement-date">Announcement Date : ' . date( 'M j , Y' , $announcement_date ) . '</strong>';
+								$custom_content = '<strong class="timeline-express-single-page-announcement-date">' . __( 'Announcement Date' , 'timeline-express' ) . ' : ' . date( 'M j , Y' , $announcement_date ) . '</strong>';
 								$custom_content .= $content;
 								if ( $referer != '' ) {	
 									$custom_content .= '<a href="' . $referer . '" class="return-to-timeline"><i class="fa fa-chevron-left"></i> ' . __( 'Back' , 'timeline-express' ) . '</a>';
@@ -795,6 +861,7 @@ if(!class_exists("timelineExpressBase"))
 								$this->timeline_express_optionVal['announcement-box-shadow-color']	= $fd['announcement-box-shadow-color'];
 								$this->timeline_express_optionVal['announcement-background-line-color']	= $fd['announcement-background-line-color'];
 								$this->timeline_express_optionVal['delete-announcement-posts-on-uninstallation'] = isset( $fd['delete-announcement-posts-on-uninstallation'] ) ? '1' : '0';
+								$this->timeline_express_optionVal['announcement-appear-in-searches'] = $fd['announcement-appear-in-searches'];
 							return update_option( TIMELINE_EXPRESS_OPTION, $this->timeline_express_optionVal );		
 						}
 					return false;
@@ -815,11 +882,11 @@ if(!class_exists("timelineExpressBase"))
 					$screen = get_current_screen();
 					$print_styles_on_screen_array = array( 'te_announcements_page_timeline-express-settings' , 'admin_page_timeline-express-welcome' , 'te_announcements_page_timeline-express-support' );
 
-					if ( in_array( $screen->base , $print_styles_on_screen_array ) || in_array( $screen->id, array( 'edit-te_announcements' ) ) ) {
+					if ( in_array( $screen->base , $print_styles_on_screen_array ) || $screen->post_type == 'te_announcements' ) {
 						// Register Styles
 						wp_enqueue_style( 'timeline-express-css-base', TIMELINE_EXPRESS_URL . 'css/timeline-express-settings.min.css' , array(), '1.0.0', 'all');	
 						// enqueue font awesome for use in column display
-						wp_enqueue_style( 'prefix-font-awesome' , '//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' , array() , '4.2.0' );					
+						wp_enqueue_style( 'prefix-font-awesome' , '//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' , array() , '4.3.0' );					
 					}
 							
 				}
@@ -1011,7 +1078,7 @@ if(!class_exists("timelineExpressBase"))
 													// display our image, if it exists
 													if ( $announcement_image != '' ) { 
 														$attachment_id = $this->timeline_express_get_image_id( $announcement_image ); 
-														$timeline_announcement_image = wp_get_attachment_image_src($attachment_id, 'timeline-express');
+														$timeline_announcement_image = wp_get_attachment_image_src( $attachment_id, apply_filters( 'timeline-express-announcement-img-size' , 'timeline-express' ) );
 														echo '<img src="' . $timeline_announcement_image[0] . '" alt="Announcement Image" class="announcement-banner-image" >';
 													}											
 													// excerpt random length
@@ -1038,7 +1105,9 @@ if(!class_exists("timelineExpressBase"))
 																$read_more_button = '<a href="' . get_the_permalink() . '" class="' . apply_filters( "timeline-express-read-more-class" , $button_classes ) . '">' . __( 'Read more' , 'timeline-express' ) . '</a>';
 															}
 														?>
-														<span class="the-excerpt"><?php echo apply_filters( 'the_content' , $this->te_wp_trim_words_retain_formatting( get_the_content() , $trim_array[$random_trim] , $elipses ) ); ?></span>
+														<span class="the-excerpt">
+															<?php echo apply_filters( 'the_content' , $this->timeline_express_custom_truncate( get_the_content() , $trim_array[$random_trim] , $elipses , false, true ) ); ?>
+														</span>
 														<?php
 													} else {
 														$trim_length = $this->timeline_express_optionVal['excerpt-trim-length'];
@@ -1050,7 +1119,10 @@ if(!class_exists("timelineExpressBase"))
 															$read_more_button = '<a href="' . get_the_permalink() . '" class="' . apply_filters( "timeline-express-read-more-class" , $button_classes ) . '">' . __( 'Read more' , 'timeline-express' ) . '</a>';
 														}
 													?>
-														<span class="the-excerpt"><?php echo apply_filters( 'the_content' , $this->te_wp_trim_words_retain_formatting( get_the_content() , $trim_length , $elipses ) ); ?></span>
+														<span class="the-excerpt">
+															<?php // echo apply_filters( 'the_content' , $this->te_wp_trim_words_retain_formatting( get_the_content() , $trim_length , $elipses ) ); ?>
+															<?php echo apply_filters( 'the_content' , $this->timeline_express_custom_truncate( get_the_content() , $trim_length , $elipses , false, true ) ); ?>
+														</span>
 													<?php
 													}
 													?>
@@ -1075,40 +1147,111 @@ if(!class_exists("timelineExpressBase"))
 					return $shortcode;
 				}
 				
-				/* Adapt WordPress core wp_trim_words to retain formatting */
-				function te_wp_trim_words_retain_formatting( $text, $num_words = 55, $more = null ) {
-					if ( null === $more )
-						$more = __( '&hellip;' );
-						$original_text = $text;
-					/* translators: If your word count is based on single characters (East Asian characters),
-					   enter 'characters'. Otherwise, enter 'words'. Do not translate into your own language. */
-					if ( 'characters' == _x( 'words', 'word count: words or characters?' ) && preg_match( '/^utf\-?8$/i', get_option( 'blog_charset' ) ) ) {
-						$text = trim( preg_replace( "/[\n\r\t ]+/", ' ', $text ), ' ' );
-						preg_match_all( '/./u', $text, $words_array );
-						$words_array = array_slice( $words_array[0], 0, $num_words + 1 );
-						$sep = '';
+				/*
+				*	Re-Write of the custom excerpt function
+				*	- trims at the set char. count (inside of timeline express settings)
+				*	- counts by character not by word
+				*	@since v1.1.5.6
+				*/
+				public function timeline_express_custom_truncate( $text, $length = 100, $ending = '&hellip;', $exact = false, $considerHtml = true ) {
+					if ($considerHtml) {
+					
+						// if the plain text is shorter than the maximum length, return the whole text
+						if (strlen(utf8_decode(preg_replace( array( '/<.*?>/', '/\n/', '/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i' ), array( '', '', ' ' ), $text))) <= $length) {
+							return $text;
+						}
+				 
+						// splits all html-tags to scanable lines
+						preg_match_all('/(<.+?>)?([^<>]*)/s', $text, $lines, PREG_SET_ORDER);
+				 
+							$total_length = ( $ending === '&hellip;' ) ? 2 : strlen( utf8_decode($ending) );
+							$open_tags = array();
+							$truncate = '';
+				 
+						foreach ($lines as $line_matchings) {
+							// if there is any html-tag in this line, handle it and add it (uncounted) to the output
+							if (!empty($line_matchings[1])) {
+								// if it's an "empty element" with or without xhtml-conform closing slash (f.e. <br/>)
+								if (preg_match('/^<(\s*.+?\/\s*|\s*(img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param)(\s.+?)?)>$/is', $line_matchings[1])) {
+									// do nothing
+								// if tag is a closing tag (f.e. </b>)
+								} else if (preg_match('/^<\s*\/([^\s]+?)\s*>$/s', $line_matchings[1], $tag_matchings)) {
+									// delete tag from $open_tags list
+									$pos = array_search($tag_matchings[1], $open_tags);
+									if ($pos !== false) {
+										unset($open_tags[$pos]);
+									}
+								// if tag is an opening tag (f.e. <b>)
+								} else if (preg_match('/^<\s*([^\s>!]+).*?>$/s', $line_matchings[1], $tag_matchings)) {
+									// add tag to the beginning of $open_tags list
+									array_unshift($open_tags, strtolower($tag_matchings[1]));
+								}
+								// add html-tag to $truncate'd text
+								$truncate .= $line_matchings[1];
+							}
+				 
+							// calculate the length of the plain text part of the line; handle entities as one character
+							$content_length = strlen(utf8_decode(preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', ' ', $line_matchings[2])));
+							if ($total_length+$content_length> $length) {
+								// the number of characters which are left
+								$left = $length - $total_length;
+								$entities_length = 0;
+								// search for html entities
+								if (preg_match_all('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', $line_matchings[2], $entities, PREG_OFFSET_CAPTURE)) {
+									// calculate the real length of all entities in the legal range
+									foreach ($entities[0] as $entity) {
+										if ($entity[1]+1-$entities_length <= $left) {
+											$left--;
+											$entities_length += strlen(utf8_decode($entity[0]));
+										} else {
+											// no more characters left
+											break;
+										}
+									}
+								}
+								$truncate .= substr($line_matchings[2], 0, $left+$entities_length);
+								// maximum lenght is reached, so get off the loop
+								break;
+							} else {
+								$truncate .= $line_matchings[2];
+								$total_length += $content_length;
+							}
+				 
+							// if the maximum length is reached, get off the loop
+							if($total_length >= $length) {
+								break;
+							}
+						}
 					} else {
-						$words_array = preg_split( "/[\n\r\t ]+/", $text, $num_words + 1, PREG_SPLIT_NO_EMPTY );
-						$sep = ' ';
+						if (strlen(utf8_decode($text)) <= $length) {
+							return $text;
+						} else {
+							$truncate = substr($text, 0, $length - strlen(utf8_decode($ending)));
+						}
 					}
-					if ( count( $words_array ) > $num_words ) {
-						array_pop( $words_array );
-						$text = implode( $sep, $words_array );
-						$text = $text . $more;
-					} else {
-						$text = implode( $sep, $words_array );
+				 
+					// if the words shouldn't be cut in the middle...
+					if (!$exact) {
+						// ...search the last occurance of a space...
+						$spacepos = strrpos($truncate, ' ');
+						if (isset($spacepos)) {
+							// ...and cut the text in this position
+							$truncate = substr($truncate, 0, $spacepos);
+						}
 					}
-					/**
-					 * Filter the text content after words have been trimmed.
-					 *
-					 * @since 3.3.0
-					 *
-					 * @param string $text          The trimmed text.
-					 * @param int    $num_words     The number of words to trim the text to. Default 5.
-					 * @param string $more          An optional string to append to the end of the trimmed text, e.g. &hellip;.
-					 * @param string $original_text The text before it was trimmed.
-					 */
-					return apply_filters( 'wp_trim_words', $text, $num_words, $more, $original_text );
+				 
+					// add the defined ending to the text
+					$truncate .= $ending;
+				 
+					if($considerHtml) {
+						// close all unclosed html-tags
+						foreach ($open_tags as $tag) {
+							$truncate .= '</' . $tag . '>';
+						}
+					}
+				 
+					return $truncate;
+				 
 				}
 				
 				// retrieves the attachment ID from the file URL
@@ -1118,6 +1261,80 @@ if(!class_exists("timelineExpressBase"))
 							return $attachment[0]; 
 					}
 
+					
+				// Build a dropdown for our bootstrap icons
+				// @since v1.1.5.7
+				public function timeline_express_build_bootstrap_dropdown( $field, $meta ) {
+						
+						// get the icons out of the css file
+						$response = wp_remote_get( 'http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css' );
+						
+						// splot the response body, and store the icon classes in a variable
+						$split_dat_response = explode( 'icons */' , $response['body'] );
+						
+						// empty array for icon array
+						$bootstrap_icon_array = array();
+						
+						// replace the unecessary stuff
+						$data = str_replace( ';' , '' , str_replace( ':before' , '' , str_replace( '}' , '' , str_replace( 'content' , '' , str_replace( '{' , '' , $split_dat_response[1] ) ) ) ) );
+						$icon_data = explode( '.fa-' , $data );
+						$i = 1;
+								
+						foreach( array_slice($icon_data,1) as $key => $value) {
+							$split_icon = explode( ':' , $value );
+							if( isset( $split_icon[1] ) ) {
+								$bootstrap_icon_array[] = array( trim( 'fa-' . $split_icon[0] ) => trim( $split_icon[0] ) );
+							}
+							$i++;
+						}
+							
+						$flat_bootstrap_icon_array = array();
+						foreach($bootstrap_icon_array as $array) {
+							foreach($array as $k=>$v) {
+							   $flat_bootstrap_icon_array[$k] = $v;
+							}
+						}
+						
+						wp_enqueue_script( 'bootstrap-select' , TIMELINE_EXPRESS_URL . 'js/bootstrap-select.js' , array( 'jquery' ) , 'all' );
+						wp_enqueue_script( 'bootstrap-min' , 'http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js' );
+						wp_enqueue_style('bootstrap-select-style' ,  TIMELINE_EXPRESS_URL . 'css/bootstrap-select.min.css' );
+						?>	
+						<script>
+						jQuery( document ).ready( function() {
+							jQuery('.selectpicker').selectpicker({
+								style: 'btn-info',
+								size: 6
+							});
+						});
+						</script>
+						<style>
+							.dropdown-toggle { background: transparent !important; border: 1px solid rgb(201, 201, 201) !important; } 
+							.dropdown-toggle .caret { border-top-color: #333 !important; }
+							.ui-datepicker-prev:hover, .ui-datepicker-next:hover { cursor: pointer; }
+						</style> 
+						
+						<!-- start the font awesome icon select -->
+						<select class="selectpicker" name="<?php echo $field['id']; ?>" id="<?php echo $field['id']; ?>">
+							
+							<?php
+								/* sort the bootstrap icons alphabetically */
+								sort( $flat_bootstrap_icon_array );
+								foreach( $flat_bootstrap_icon_array as $icon ) {
+							?>
+							
+							<option class="fa" data-icon="fa-<?php echo $icon; ?>" <?php selected( 'fa-'.$icon , $meta ); ?>><?php echo $icon; ?></option>
+							
+							<?php
+								}
+							?>
+							
+						</select>
+						<!-- end select -->
+						
+						<?php
+						echo '<p class="cmb_metabox_description">'.$field['desc'].'</p>';
+					}	
+					
 			/***** ADMINISTRATION MENUS
 			 ****************************************************************************************************/
 			public function addAdministrationMenu() {
@@ -1156,7 +1373,7 @@ if(!class_exists("timelineExpressBase"))
 					$this->timeline_express_optionVal['timeline-title-alignment'] = "left";
 					$this->timeline_express_optionVal['timeline-title-size'] = "h1";
 					$this->timeline_express_optionVal['default-announcement-color'] = '#75CE66';
-					$this->timeline_express_optionVal['excerpt-trim-length'] = '30';
+					$this->timeline_express_optionVal['excerpt-trim-length'] = '250';
 					$this->timeline_express_optionVal['excerpt-random-length'] = '0';
 					$this->timeline_express_optionVal['read-more-visibility']	= '1';
 					$this->timeline_express_optionVal['date-visibility']	= '1';
@@ -1168,6 +1385,7 @@ if(!class_exists("timelineExpressBase"))
 					$this->timeline_express_optionVal['announcement-box-shadow-color'] = "#B9C5CD";	
 					$this->timeline_express_optionVal['announcement-background-line-color'] = '#D7E4ED';
 					$this->timeline_express_optionVal['delete-announcement-posts-on-uninstallation'] = '0';
+					$this->timeline_express_optionVal['announcement-appear-in-searches'] = 'true';
 					return update_option( TIMELINE_EXPRESS_OPTION, $this->timeline_express_optionVal );	
 				}
 			 
