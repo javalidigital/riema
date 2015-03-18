@@ -853,6 +853,10 @@ html, body {
 		z-index: 1;
 	}
 
+		.menu-bar-container select {
+			display: none;
+		}
+
 		.menu-bar ul.menu {
 			position: absolute;
 			right: 0;
@@ -1697,3 +1701,395 @@ width: 100px;
   box-shadow: none;
 }
 
+
+/* Small screen */
+@media screen and (min-width: 150px) and (max-width:500px) {
+	
+	/* LAYOUT */
+	.top-bar {
+		height: 30px;
+	}
+
+		.top-bar-container {
+			width: 100%;
+			padding: 0 2%;
+		}
+
+			.menu-menu-topo-container {
+				padding-top: 5px;
+			}
+
+			.top-bar ul.menu {
+				width: 100%;
+				margin: 0px auto;
+				position: static;
+				text-align: center;
+			}
+
+				.top-bar ul.menu li {
+					float: none;
+					display: inline;
+					margin:0 8px;
+					padding: 0;
+					border: none;
+				}
+
+					.top-bar ul.menu li a {
+  						display: inline;
+  						font-size: 0.8em;
+  						margin:0;
+						padding: 0;
+						border: none;
+  					}
+
+	.menu-bar {
+		height: 60px;
+	}
+
+		.menu-bar-container {
+			padding: 18px 0;
+  			width: 100%;
+		}
+		
+			.menu-bar-container div {
+				display: none;
+			}
+			
+			.menu-bar-container select {
+				width:90%;
+				margin:0 auto; 
+				display: block;
+				font-size: 1.3em;
+				padding:5px;
+			}
+
+	.logo-bar {
+		margin: 0 auto;
+
+	}
+
+		.logo-bar-border {
+			display: none;
+		}
+
+		.logo-bar-content {
+			width: 100%;
+			float: none;
+		}
+
+		.logo-bar-container {
+			width: 100%;
+			padding: 0 2%;
+		}
+
+		.logo {
+			width: 100%;
+			background-position: center center;
+		}
+
+	.content-area {
+		width: 100%;
+		padding: 0 2%;
+	}
+
+		.breadcrumb {
+			width: 100%;
+			padding:0;
+			background-position: top left;
+			margin: 20px 0;
+		}
+	
+		.site-main {
+			float: left;
+			width: 100%;
+			margin: 0px;
+		}
+
+			.site-main .hentry {
+				margin-bottom: 0;
+			}
+		
+		.site-sidebar {
+			float: right;
+			width: 100%;
+			margin-top: 35px;
+		}
+		
+			.site-sidebar .widget_adrotate_widgets {
+				display:none;
+			}
+
+	.site-footer {
+
+	}
+
+		.site-footer-container {
+			width: 100%;
+		}
+
+			.site-footer-copyright {
+				  background: none;
+				  width: 100%;
+				  padding: 5px 2% 0;
+				  text-align: center;
+			}
+
+
+	/* LANDING */
+	body.home .menu-bar {
+		display: none;
+	}
+
+	.landing-page-boxes {
+		width: 100%;
+		margin: 20px auto 0;
+	}
+
+		a.landing-page-box {
+			display: block;
+			width: 100%;
+			height: 150px;
+			padding: 75px 2% 15px 2%;
+			margin: 20px auto;
+			position: relative;
+		}
+	/* END LANDING */
+
+	/* O GRUPO */
+	.cd-timeline-block {
+		   margin: 0 !important;
+		   line-height: 14px;
+  			font-size: 0.9em;
+	}
+
+	.post-item-content {
+		margin-bottom: 30px;
+	}
+	/* END O GRUPO */
+
+	/* IMOBILIARIA */
+	body:nth-of-type(1) .entry-content .wpb_text_column .shortcode_featured_properties ul li {
+		margin: 10px;
+	}
+	/* END IMOBILIARIA */
+
+	/* INC E URBANISMO */
+	body.page-template-template-incorporacao .wpb_column  {
+		margin-bottom: 40px;
+	}
+
+	article.post-19 .wpb_column {
+		text-align: center;
+	}
+
+	body.page-template-template-incorporacao .wpb_single_image {
+		margin-bottom: 0px !important;
+	}
+	/* END INC E URBANISMO */
+	
+	
+	input[type="text"],
+	input[type="email"],
+	input[type="url"],
+	input[type="password"],
+	input[type="search"] {
+		width:100%;
+	}
+
+}
+/* end small screen */
+
+/* Medium screen */
+@media screen and (min-width: 501px) and (max-width:1009px) {
+	/* LAYOUT */
+	.top-bar {
+		height: 30px;
+	}
+
+		.top-bar-container {
+			width: 100%;
+			padding: 0 2%;
+		}
+
+			.menu-menu-topo-container {
+				padding-top: 5px;
+			}
+
+			.top-bar ul.menu {
+				width: 100%;
+				margin: 0px auto;
+				position: static;
+				text-align: center;
+			}
+
+				.top-bar ul.menu li {
+					float: none;
+					display: inline;
+					margin:0 8px;
+					padding: 0;
+					border: none;
+				}
+
+					.top-bar ul.menu li a {
+  						display: inline;
+  						font-size: 0.8em;
+  						margin:0;
+						padding: 0;
+						border: none;
+  					}
+
+	.menu-bar {
+		height: 60px;
+	}
+
+		.menu-bar-container {
+			padding: 18px 0;
+  			width: 100%;
+		}
+		
+			.menu-bar-container div {
+				display: none;
+			}
+			
+			.menu-bar-container select {
+				width:90%;
+				margin:0 auto; 
+				display: block;
+				font-size: 1.3em;
+				padding:5px;
+			}
+
+	.logo-bar {
+		margin: 0 auto;
+
+	}
+
+		.logo-bar-border {
+			display: none;
+		}
+
+		.logo-bar-content {
+			width: 100%;
+			float: none;
+		}
+
+		.logo-bar-container {
+			width: 100%;
+			padding: 0 2%;
+		}
+
+		.logo {
+			width: 100%;
+			background-position: center center;
+		}
+
+	.content-area {
+		width: 100%;
+		padding: 0 2%;
+	}
+
+		.breadcrumb {
+			width: 100%;
+			padding:0;
+			background-position: top left;
+			margin: 20px 0;
+		}
+	
+		.site-main {
+			float: left;
+			width: 100%;
+			margin: 0px;
+		}
+
+			.site-main .hentry {
+				margin-bottom: 0;
+			}
+		
+		.site-sidebar {
+			float: right;
+			width: 100%;
+			margin-top: 35px;
+		}
+		
+			.site-sidebar .widget_adrotate_widgets {
+				display:none;
+			}
+
+	.site-footer {
+
+	}
+
+		.site-footer-container {
+			width: 100%;
+		}
+
+			.site-footer-copyright {
+				  background: none;
+				  width: 100%;
+				  padding: 5px 2% 0;
+				  text-align: center;
+			}
+
+
+	/* LANDING */
+	body.home .menu-bar {
+		display: none;
+	}
+
+	.landing-page-boxes {
+		width: 100%;
+		margin: 20px auto 0;
+	}
+
+		a.landing-page-box {
+			display: block;
+			width: 100%;
+			height: 150px;
+			padding: 75px 2% 15px 2%;
+			margin: 20px auto;
+			position: relative;
+		}
+	/* END LANDING */
+
+	/* O GRUPO */
+	.cd-timeline-block {
+		   margin: 0 !important;
+		   line-height: 14px;
+  			font-size: 0.9em;
+	}
+
+	.post-item-content {
+		margin-bottom: 30px;
+	}
+	/* END O GRUPO */
+
+	/* IMOBILIARIA */
+	body:nth-of-type(1) .entry-content .wpb_text_column .shortcode_featured_properties ul li {
+		margin: 10px;
+	}
+	/* END IMOBILIARIA */
+
+	/* INC E URBANISMO */
+	body.page-template-template-incorporacao .wpb_column  {
+		margin-bottom: 40px;
+	}
+
+	article.post-19 .wpb_column {
+		text-align: center;
+	}
+
+	body.page-template-template-incorporacao .wpb_single_image {
+		margin-bottom: 0px !important;
+	}
+	/* END INC E URBANISMO */
+	
+	
+	input[type="text"],
+	input[type="email"],
+	input[type="url"],
+	input[type="password"],
+	input[type="search"] {
+		width:100%;
+	}
+}
+/* end medium screen */

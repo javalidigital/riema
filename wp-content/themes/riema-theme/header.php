@@ -46,6 +46,29 @@ jQuery(document).ready(function() {
 		location.href = "http://www.engenhosistemas.com.br/riema/?xcodadministradora=RIEMA&xcodhot=" + FlatName + "&xDe=" + FlatCheckin + "&xAte=" + FlatCheckout;
 		return false;
 	} );
+
+	// Create the dropdown base
+	jQuery("<select />").appendTo(".menu-bar-container");
+	
+	// Create default option "Go to..."
+	jQuery("<option />", {
+	   "selected": "selected",
+	   "value"   : "",
+	   "text"    : "Selecione a área desejada..."
+	}).appendTo(".menu-bar-container select");
+	
+	// Populate dropdown with menu items
+	jQuery(".menu-bar-container a").each(function() {
+	 var el = jQuery(this);
+	 jQuery("<option />", {
+	     "value"   : el.attr("href"),
+	     "text"    : el.text()
+	 }).appendTo(".menu-bar-container select");
+	});
+	
+	jQuery(".menu-bar-container select").change(function() {
+	  window.location = jQuery(this).find("option:selected").val();
+	});
 });
 </script>
 <!--[if gte IE 9]>

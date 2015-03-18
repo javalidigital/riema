@@ -16,9 +16,6 @@ get_header(); ?>
 			<span class="breadcrumb-text">Voc&ecirc; est&aacute; em:</span>
 			<?php if(function_exists('bcn_display')) { bcn_display(); }?>
 		</div>
-		<div class="site-sidebar widget-area" role="complementary">
-			<?php get_sidebar(); ?>
-		</div>
 		<main id="main" class="site-main" role="main">
 
 			<?php while ( have_posts() ) : the_post(); ?>
@@ -28,5 +25,8 @@ get_header(); ?>
 			<?php endwhile; // end of the loop. ?>
 
 		</main><!-- #main -->
+		<div class="site-sidebar widget-area" role="complementary">
+			<?php get_sidebar(); ?>
+		</div>
 	</div><!-- #primary -->
 <?php get_footer(); ?>

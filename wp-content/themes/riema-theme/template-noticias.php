@@ -9,9 +9,7 @@ get_header(); ?>
 			<span class="breadcrumb-text">Voc&ecirc; est&aacute; em:</span>
 			<?php if(function_exists('bcn_display')) { bcn_display(); }?>
 		</div>
-		<div class="site-sidebar widget-area" role="complementary">
-			<?php dynamic_sidebar( 'sidebar-grupo' ); ?>
-		</div>
+		
 		<main id="main" class="site-main" role="main">
 			<header class="entry-header">
 				<h1 class="entry-title">Not&iacute;cias</h1>
@@ -61,5 +59,8 @@ get_header(); ?>
 			<?php endif; ?>
 
 		</main><!-- #main -->
+		<div class="site-sidebar widget-area" role="complementary">
+			<?php dynamic_sidebar( 'sidebar-grupo' ); ?>
+		</div>
 	</div><!-- #primary -->
 <?php get_footer(); ?>
