@@ -1346,6 +1346,10 @@ body.home .menu-bar {
 			
 /* imobiliaria */
 
+.gallery-to-slideshow .slides > li img {
+max-height:370px;
+}
+
 li.operao dt {
 	display: none !important;
 }
@@ -1661,6 +1665,10 @@ width: 100px;
 .page-id-1186 .wpb_text_column.wpb_content_element {
 	font-size: 0.75em;
 	text-align: center;
+}
+
+.page-id-1186 .wpb_text_column.wpb_content_element ul {
+text-align:left !important;
 }
 
 /* button */
@@ -2093,3 +2101,7 @@ width: 100px;
 	}
 }
 /* end medium screen */
+
+.nivo-caption {
+display:none !important;
+}

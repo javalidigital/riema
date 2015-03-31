@@ -1,6 +1,17 @@
 <?php
 class WPBakeryShortCode_VC_gallery extends WPBakeryShortCode {
 
+	function __construct( $settings ) {
+		parent::__construct( $settings );
+
+		$this->shortcodeScripts();
+	}
+
+	public function shortcodeScripts() {
+		wp_register_script( 'vc_grid-js-imagesloaded',
+			vc_asset_url( 'lib/imagesloaded/imagesloaded.pkgd.min.js' ) );
+	}
+
 	public function singleParamHtmlHolder( $param, $value ) {
 		$output = '';
 		// Compatibility fixes
